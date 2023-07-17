@@ -9,10 +9,12 @@ using Shared.Helpers;
 using System.Reflection;
 
 var host = new HostBuilder()
-    .ConfigureAppConfiguration(config =>
+    .ConfigureAppConfiguration((context, config) =>
     {
-        config.AddUserSecrets(Assembly.GetExecutingAssembly());
-
+        if (context.HostingEnvironment.IsDevelopment())
+        {
+            config.AddUserSecrets(Assembly.GetExecutingAssembly());
+        }
     })
     .ConfigureFunctionsWorkerDefaults(app =>
     {
@@ -29,7 +31,8 @@ var host = new HostBuilder()
 
         services.AddAzureClients(builder =>
         {
-            builder.AddBlobServiceClient("UseDevelopmentStorage=true");
+            var blobConnectionString = context.Configuration.GetValue<string>("localStorage:blob");
+            builder.AddBlobServiceClient(blobConnectionString);
         });
     })
     .Build();

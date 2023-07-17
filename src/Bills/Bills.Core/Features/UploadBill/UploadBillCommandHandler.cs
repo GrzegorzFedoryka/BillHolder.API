@@ -23,6 +23,7 @@ internal sealed class UploadBillCommandHandler : IRequestHandler<UploadBillComma
     public async Task<Result<bool>> Handle(UploadBillCommand request, CancellationToken cancellationToken)
     {
         var containerClient = _client.GetBlobContainerClient("name"); // todo replace name with tenant blob id
+
         try
         {
             await containerClient.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
