@@ -5,9 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4D390AAD-1EAF-472F-BD49-C5F5ED284AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bills.Core", "src\Bills\Bills.Core\Bills.Core.csproj", "{C952FD2F-578B-4286-95A1-C14A936F5C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bills.Core", "src\Bills\Bills.Core\Bills.Core.csproj", "{C952FD2F-578B-4286-95A1-C14A936F5C4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{9D18637A-DAC9-49A1-A435-8A8DD20B7651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Shared\Shared.csproj", "{9D18637A-DAC9-49A1-A435-8A8DD20B7651}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2927C008-EEE9-4A11-A878-C203673A8E3F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.UnitTests", "tests\Shared\Shared.UnitTests\Shared.UnitTests.csproj", "{CD506815-AB59-4639-BAA6-4AE777463361}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,10 @@ Global
 		{9D18637A-DAC9-49A1-A435-8A8DD20B7651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D18637A-DAC9-49A1-A435-8A8DD20B7651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D18637A-DAC9-49A1-A435-8A8DD20B7651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD506815-AB59-4639-BAA6-4AE777463361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD506815-AB59-4639-BAA6-4AE777463361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD506815-AB59-4639-BAA6-4AE777463361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD506815-AB59-4639-BAA6-4AE777463361}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C952FD2F-578B-4286-95A1-C14A936F5C4E} = {4D390AAD-1EAF-472F-BD49-C5F5ED284AAC}
 		{9D18637A-DAC9-49A1-A435-8A8DD20B7651} = {4D390AAD-1EAF-472F-BD49-C5F5ED284AAC}
+		{CD506815-AB59-4639-BAA6-4AE777463361} = {2927C008-EEE9-4A11-A878-C203673A8E3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD9E4F9-B46D-4C99-A5EA-D04E0CA2C023}

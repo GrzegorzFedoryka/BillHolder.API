@@ -16,7 +16,6 @@ internal class MaxContentLengthMiddleware : IFunctionsWorkerMiddleware
     // Todo caching using distributed cache (Redis probably)
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
-
         if (context.TryGetCustomCalledFunctionAttribute<MaxContentLengthAttribute>(out var attribute))
         {
             var (headerExists, contentLength) = await context.GetContentLengthAsync();
@@ -39,9 +38,9 @@ internal class MaxContentLengthMiddleware : IFunctionsWorkerMiddleware
 
                 return;
             }
-
-            await next.Invoke(context);
         }
+
+        await next.Invoke(context);
     }
 }
 

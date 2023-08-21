@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Config;
 
-public static class AddMediatR
+public static class MediatRConfig
 {
     public static IServiceCollection AddValidation<T>(this IServiceCollection services)
     {

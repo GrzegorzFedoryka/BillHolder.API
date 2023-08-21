@@ -11,6 +11,88 @@ services:
             - "blobdata:/blobroot"
         ports:
             - "11002:11002"
+    db:
+        container_name: cosmosdb
+        image: "mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator"
+        tty: true
+        restart: always
+        mem_limit: 2G
+        cpu_count: 2
+        environment:
+        - AZURE_COSMOS_EMULATOR_PARTITION_COUNT=5
+        - AZURE_COSMOS_EMULATOR_ENABLE_DATA_PERSISTENCE=true
+        - AZURE_COSMOS_EMULATOR_IP_ADDRESS_OVERRIDE=127.0.0.1
+        ports:
+        - "8081:8081"
+        - "8900:8900"
+        - "8901:8901"
+        - "8979:8979"
+        - "10250:10250"
+        - "10251:10251"
+        - "10252:10252"
+        - "10253:10253"
+        - "10254:10254"
+        - "10255:10255"
+        - "10256:10256"
+        - "10350:10350"
+        volumes:
+        - vol_cosmos:/data/db
+    rabbitmq:
+        image: rabbitmq:latest
+        container_name: rabbitmq
+        volumes:
+        - ../volumes/rabbitmq/data/:/var/lib/rabbitmq
+        - ../volumes/rabbitmq/log/:/var/log/rabbitmq
+        ports:
+        - 5672:5672
+        - 15672:15672
+
+    cache:
+        image: redis:latest
+        container_name: redis
+        restart: always
+        ports:
+        - 6379:6379
+        volumes:
+        - ../volumes/redis:/data
+    
+    oidc-server-mock:
+        container_name: oidc-server-mock
+        image: ghcr.io/soluto/oidc-server-mock:latest
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+            ASPNETCORE_URLS: https://+:443;http://+:80
+            ASPNETCORE_Kestrel__Certificates__Default__Password: oidc-server-mock-pwd
+            ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx
+            SERVER_OPTIONS_PATH: /config/server-options.json
+            LOGIN_OPTIONS_INLINE: |
+                {
+                    "AllowRememberLogin": false
+                }
+            LOGOUT_OPTIONS_INLINE: |
+                {
+                    "AutomaticRedirectAfterSignOut": true
+                }
+            API_RESOURCES_PATH: /config/api-resources.yaml
+            API_SCOPES_INLINE: |
+                - Name: some-app-scope-1
+                  UserClaims:
+                    - some-app-scope-1-custom-user-claim
+                - Name: some-app-scope-2
+            USERS_CONFIGURATION_PATH: /config/users.yaml
+            CLIENTS_CONFIGURATION_PATH: /config/clients.json
+            IDENTITY_RESOURCES_PATH: /config/identity-resources.json
+            ASPNET_SERVICES_OPTIONS_INLINE: |
+                {
+                    "BasePath": "/some-base-path"
+                }
+        volumes:
+        - ./config:/config:ro
+        - ./https:/https:ro
+        ports:
+        - 8080:80
+        - 8443:443
 volumes:
   blobdata:
+  vol_cosmos:  
     
