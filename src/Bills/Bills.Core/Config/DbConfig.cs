@@ -19,7 +19,9 @@ internal static class DbConfig
         var converters = SerializationConfig.GetSerializationConverters<IBillsMarker>();
         var serializerOptions = new JsonSerializerOptions()
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            TypeInfoResolver = new PrivateConstructorContractResolver()
+
         };
 
         foreach (var converter in converters) 

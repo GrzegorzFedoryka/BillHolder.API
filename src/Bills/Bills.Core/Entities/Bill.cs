@@ -29,4 +29,6 @@ internal class Bill
             UserId = id
         };
     }
+
+    public void UpdateUrl(string url) => Url = url;
 }

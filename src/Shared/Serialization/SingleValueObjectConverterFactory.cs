@@ -38,7 +38,7 @@ public class SingleValueObjectConverterFactory : JsonConverterFactory
         private readonly JsonConverter<Tvalue> _valueConverter;
         private readonly Type _valueType;
 
-        public SingleValueObjectConverterInner(JsonSerializerOptions options)
+        public SingleValueObjectConverterInner(JsonSerializerOptions? options = null)
         {
             // For performance, use the existing converter
             _valueConverter = (JsonConverter<Tvalue>)options

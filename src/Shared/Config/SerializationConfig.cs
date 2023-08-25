@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -12,9 +13,12 @@ namespace Shared.Config;
 
 public static class SerializationConfig
 {
+    private static JsonSerializerOptions options = new(JsonSerializerDefaults.Web);
     public static IEnumerable<JsonConverter> GetSerializationConverters<Tassembly>()
     {
         var factory = new SingleValueObjectConverterFactory();
+
+
 
         var converterTypesToRegister = Assembly
             .GetAssembly(typeof(Tassembly))!
@@ -31,7 +35,7 @@ public static class SerializationConfig
 
         foreach(var type in converterTypesToRegister)
         {
-            yield return factory.CreateConverter(type, null);
+            yield return factory.CreateConverter(type, options);
         }
     }
 }

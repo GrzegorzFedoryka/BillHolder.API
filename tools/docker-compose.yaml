@@ -8,7 +8,7 @@ services:
             LOCAL_STORAGE_ACCOUNT_NAME: sample  
             LOCAL_STORAGE_ACCOUNT_KEY: "zRSmKbeUMb1NUkFjoGC9RA=="       
         volumes:
-            - "blobdata:/blobroot"
+            - vol_blobdata:/blobroot
         ports:
             - "11002:11002"
     db:
@@ -41,8 +41,8 @@ services:
         image: rabbitmq:latest
         container_name: rabbitmq
         volumes:
-        - ../volumes/rabbitmq/data/:/var/lib/rabbitmq
-        - ../volumes/rabbitmq/log/:/var/log/rabbitmq
+        - vol_rabbitmq:/var/lib/rabbitmq
+        - vol_rabbitmq:/var/log/rabbitmq
         ports:
         - 5672:5672
         - 15672:15672
@@ -54,7 +54,7 @@ services:
         ports:
         - 6379:6379
         volumes:
-        - ../volumes/redis:/data
+        - vol_redis:/data
     
     oidc-server-mock:
         container_name: oidc-server-mock
@@ -93,6 +93,9 @@ services:
         - 8080:80
         - 8443:443
 volumes:
-  blobdata:
+  vol_blobdata:
   vol_cosmos:  
+  vol_oidc:
+  vol_rabbitmq:
+  vol_redis:
     

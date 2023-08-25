@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Shared.Filters.MaxContentLength;
 using Shared;
-using Bills.Core.Features.UploadBill;
-using Bills.Core.Features.GetAllBills;
+using Bills.Core.Functions.Features.UploadBill;
+using Bills.Core.Functions.Features.GetAllBills;
 
 namespace Bills.Core.Functions;
 
@@ -53,11 +53,16 @@ public sealed class Images : ModuleBase
 
         var result = await Mediator.Send(query);
 
-        var response = result.Match(
-            success => req.CreateResponse(HttpStatusCode.OK),
-            fail => {
+        var response = await result.Match<Task<HttpResponseData>>(
+            async success =>
+            {
+                var r = req.CreateResponse(HttpStatusCode.OK);
+                await r.WriteAsJsonAsync(success);
+                return r;
+            },
+            async fail => {
                 var r = req.CreateResponse(HttpStatusCode.BadRequest);
-                r.WriteString(fail.Message);
+                await r.WriteStringAsync(fail.Message);
                 return r;
             });
 
